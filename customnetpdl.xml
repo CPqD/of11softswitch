@@ -162,9 +162,9 @@
 
 	<format>
 		<fields>
-			<field type="fixed" name="dst" longname="008" size="6" showtemplate="MACaddressEth"/>
-			<field type="fixed" name="src" longname="009" size="6" showtemplate="MACaddressEth"/>
-			<field type="fixed" name="type" longname="003" size="2" showtemplate="eth.typelength"/>
+			<field type="fixed" name="dst" longname="{0,8}" size="6" showtemplate="MACaddressEth"/>
+			<field type="fixed" name="src" longname="{00,9}" size="6" showtemplate="MACaddressEth"/>
+			<field type="fixed" name="type" longname="{000,3}" size="2" showtemplate="eth.typelength"/>
 		</fields>
 	</format>
 
@@ -325,12 +325,12 @@
 	<format>
 		<fields>
 			<block name="vlan" size="2" longname="Tag Control Information">
-				<field type="bit" name="pri" longname="002" mask="0xE000" size="2" showtemplate="FieldHex"/>
+				<field type="bit" name="pri" longname="{0,2}" mask="0xE000" size="2" showtemplate="FieldHex"/>
 				<field type="bit" name="cfi" longname="CFI" mask="0x1000" size="2" showtemplate="FieldDec"/>
-				<field type="bit" name="vlanid" longname="001" mask="0x0FFF" size="2" showtemplate="FieldDec"/>
+				<field type="bit" name="vlanid" longname="{0,1}" mask="0x0FFF" size="2" showtemplate="FieldDec"/>
 			</block>
 
-			<field type="fixed" name="type" longname="003" size="2" showtemplate="eth.typelength"/>
+			<field type="fixed" name="type" longname="{0,003}" size="2" showtemplate="eth.typelength"/>
 		</fields>
 	</format>
 
@@ -635,7 +635,7 @@
 			<!--
 			The CoS field is identified as Exp (Experimental Use) inside RFC 3032
 			-->
-			<field type="bit" name="label" longname="128 Label" mask="0xFFFFF000" size="4" showtemplate="FieldDec"/>
+			<field type="bit" name="label" longname="{1,0} 128 Label" mask="0xFFFFF000" size="4" showtemplate="FieldDec"/>
 			<field type="bit" name="cos" longname="Class of Service" mask="0x00000E00" size="4" showtemplate="FieldDec"/>
 			<field type="bit" name="s" longname="Bottom of Stack" mask="0x00000100" size="4" showtemplate="FieldDec"/>
 			<field type="bit" name="ttl" longname="Time To Live"  mask="0x000000FF" size="4" showtemplate="FieldDec"/>
@@ -4127,7 +4127,7 @@ Please note: it was this before
 		<fields>
 			<field type="bit" name="ver" longname="Version" mask="0xF0" size="1" showtemplate="FieldDec"/>
 			<field type="bit" name="hlen" longname="Header length" comment="The length is in multiple of 4 bytes" mask="0x0F" size="1" showtemplate="FieldMul4Dec"/>
-			<field type="fixed" name="tos" longname="004 Type of service" size="1" showtemplate="FieldHex"/>
+			<field type="fixed" name="tos" longname="{0,4} 004 Type of service" size="1" showtemplate="FieldHex"/>
 			<field type="fixed" name="tlen" longname="Total length" size="2" showtemplate="FieldDec"/>
 			<field type="fixed" name="identification" longname="Identification" size="2" showtemplate="FieldDec"/>
 			<block name="ffo" longname="Flags and Fragment offset">
@@ -4137,10 +4137,10 @@ Please note: it was this before
 				<field type="bit" name="foffset" longname="Fragment offset" comment="This is in multiple of 8 bytes" mask="0x1FFF" size="2" showtemplate="ShortMul8Dec"/>
 			</block>
 			<field type="fixed" name="ttl" longname="Time to live" size="1" showtemplate="FieldDec"/>
-			<field type="fixed" name="nextp" longname="005 Next protocol" size="1" showtemplate="FieldDec"/>
+			<field type="fixed" name="nextp" longname="{0,5} Next protocol" size="1" showtemplate="FieldDec"/>
 			<field type="fixed" name="hchecksum" longname="Header Checksum" size="2" showtemplate="FieldHex"/>
-			<field type="fixed" name="src" longname="010 Source address" size="4" showtemplate="ip4addr"/>
-			<field type="fixed" name="dst" longname="011 Destination address" size="4" showtemplate="ip4addr"/>
+			<field type="fixed" name="src" longname="{0,10}" size="4" showtemplate="ip4addr"/>
+			<field type="fixed" name="dst" longname="{0,11}" size="4" showtemplate="ip4addr"/>
 
 			<!-- Options loop -->
 			<block name="option" longname="IP Options">
@@ -4549,12 +4549,12 @@ Please note: it was this before
 		<fields>
 			<field type="bit" name="ver" longname="Version" mask="0xF0000000" size="4" showtemplate="FieldDec"/>
 			<field type="bit" name="tos" longname="Type of service" mask="0x0F000000" size="4" showtemplate="FieldHex"/>
-			<field type="bit" name="flabel" longname="260 Flow label" mask="0x00FFFFFF" size="4" showtemplate="FieldHex"/>
+			<field type="bit" name="flabel" longname="{2,4}" mask="0x00FFFFFF" size="4" showtemplate="FieldHex"/>
 			<field type="fixed" name="plen" longname="Payload Length" size="2" showtemplate="FieldDec"/>
 			<field type="fixed" name="nexthdr" longname="Next Header" size="1" showtemplate="ipv6.nexthdr"/>
 			<field type="fixed" name="hop" longname="Hop limit" size="1" showtemplate="FieldDec"/>
-			<field type="fixed" name="src" longname="256 Source Address" size="16" showtemplate="ip6addr" />
-			<field type="fixed" name="dst" longname="257 Destination Address" size="16" showtemplate="ip6addr" />
+			<field type="fixed" name="src" longname="{2,0}" size="16" showtemplate="ip6addr" />
+			<field type="fixed" name="dst" longname="{2,1}" size="16" showtemplate="ip6addr" />
 
 			<loop type="while" expr="1">
 				<!-- Loop until we find a 'break' -->
@@ -4582,7 +4582,7 @@ Please note: it was this before
 		</fields>
 
 
-		<block name="HBH" longname="264 Hop By Hop Option">
+		<block name="HBH" longname="{2,8}">
 			<field type="fixed" name="nexthdr" longname="Next Header" size="1" showtemplate="ipv6.nexthdr"/>
 			<field type="fixed" name="helen" longname="Length (multiple of 8 bytes, not including the first 8)" size="1" showtemplate="ipv6.hbhlen"/>
 			<loop type="size" expr="(buf2int(helen) * 8) + 6">	<!-- '6' because the first two bytes are nexthdr and helen -->
@@ -4590,7 +4590,7 @@ Please note: it was this before
 			</loop>
 		</block>
 
-		<block name="FH" longname="544 Fragment Header">
+		<block name="FH" longname="{2,32} 544 Fragment Header">
 			<field type="fixed" name="nexthdr" longname="Next Header" size="1" showtemplate="ipv6.nexthdr"/>
 			<field type="fixed" name="reserved" longname="Reserved (multiple of 8 bytes)" comment="This is in multiple of 8 bytes" size="1" showtemplate="FieldDec"/>
 			<field type="bit" name="fragment offset" longname="Fragment Offset" mask="0xFFF0" size="2" showtemplate="FieldDec"/>
@@ -4599,7 +4599,7 @@ Please note: it was this before
 			<field type="fixed" name="identification" longname="Identification" size="4" showtemplate="FieldDec"/>
 		</block>
 
-		<block name="AH" longname="552 Authentication Header">
+		<block name="AH" longname="{2,40} 552 Authentication Header">
 			<field type="fixed" name="nexthdr" longname="Next Header" size="1" showtemplate="ipv6.nexthdr"/>
 			<field type="fixed" name="payload len" longname="Payload Len" size="1" showtemplate="FieldDec"/>
 			<field type="fixed" name="reserved" longname="Reserved" size="2" showtemplate="FieldDec"/>
@@ -4607,7 +4607,7 @@ Please note: it was this before
 			<field type="fixed" name="snf" longname="Sequence Number Field" size="4" showtemplate="FieldDec"/>
 		</block>
 
-		<block name="DOH" longname="272 Destination Option Header">
+		<block name="DOH" longname="{2,16} 272 Destination Option Header">
 			<field type="fixed" name="nexthdr" longname="Next Header" size="1" showtemplate="ipv6.nexthdr"/>
 			<field type="fixed" name="helen" longname="Length (multiple of 8 bytes, not including the first 8)" size="1" showtemplate="ipv6.hbhlen"/>
 			<loop type="size" expr="(buf2int(helen) * 8)+6"> <!-- '6' because the first two bytes are nexthdr and helen -->
@@ -4615,7 +4615,7 @@ Please note: it was this before
 			</loop>
 		</block>
 
-		<block name="RH" longname="280 Routing Header">
+		<block name="RH" longname="{2,24} 280 Routing Header">
 			<field type="fixed" name="nexthdr" longname="Next Header" size="1" showtemplate="ipv6.nexthdr"/>
 			<field type="fixed" name="hlen" longname="Length (multiple of 8 bytes)" comment="This is in multiple of 8 bytes" size="1" showtemplate="FieldDec"/>	
 			<field type="fixed" name="rtype" longname="Routing Type" size="1" showtemplate="FieldDec"/>
@@ -4625,7 +4625,7 @@ Please note: it was this before
 			<switch expr="buf2int(rtype)">
 				<case value="0">
 					<loop type="times2repeat" expr="(buf2int(hlen) div 2)">
-						<field type="fixed" name="address" longname="281 Address" size="16" showtemplate="ip6addr"/>
+						<field type="fixed" name="address" longname="{2,25} 281 Address" size="16" showtemplate="ip6addr"/>
 					</loop>
 				</case>
 				<default>
@@ -4639,7 +4639,7 @@ Please note: it was this before
 			<field type="fixed" name="opttype" longname="Option Type" size="1" showtemplate="ipv6.opttype">
 				<field type="bit" name="act" longname="Action (action if Option Type is unrecognized)" mask="0xC0" size="1" showtemplate="ipv6.optact"/> 
 				<field type="bit" name="chg" longname="Change (whether or not option data can change while packet is en-route)" mask="0x20" size="1" showtemplate="ipv6.optchg"/> 
-				<field type="bit" name="res" longname="273 Option Code" mask="0x1F" size="1" showtemplate="FieldDec"/> 
+				<field type="bit" name="res" longname="{2,17} 273 Option Code" mask="0x1F" size="1" showtemplate="FieldDec"/> 
 			</field>
 
 			<switch expr="buf2int(opttype)">
@@ -4649,12 +4649,12 @@ Please note: it was this before
 
 				<case value="5">	<!-- Router Alert -->
 					<field type="fixed" name="optlen" longname="Option Length" size="1" showtemplate="FieldDec"/>
-					<field type="fixed" name="value" size="2" longname="274 Option Value" showtemplate="ipv6.optroutalert"/>
+					<field type="fixed" name="value" size="2" longname="{2,18} 274 Option Value" showtemplate="ipv6.optroutalert"/>
 				</case>
 
 				<default>
 					<field type="fixed" name="optlen" longname="Option Length" size="1" showtemplate="FieldDec"/>
-					<field type="variable" name="optval" longname="274 Option Value" expr="buf2int(optlen)" showtemplate="Field4BytesHex"/>
+					<field type="variable" name="optval" longname="{2,18} 274 Option Value" expr="buf2int(optlen)" showtemplate="Field4BytesHex"/>
 				</default>
 			</switch>
 		</block>
@@ -4663,7 +4663,7 @@ Please note: it was this before
 			<field type="fixed" name="opttype" longname="Option Type" size="1" showtemplate="ipv6.opttype">
 				<field type="bit" name="act" longname="Action (action if Option Type is unrecognized)" mask="0xC0" size="1" showtemplate="ipv6.optact"/> 
 				<field type="bit" name="chg" longname="Change (whether or not option data can change while packet is en-route)" mask="0x20" size="1" showtemplate="ipv6.optchg"/> 
-				<field type="bit" name="res" longname="265 Option Code" mask="0x1F" size="1" showtemplate="FieldDec"/> 
+				<field type="bit" name="res" longname="{2,9} 265 Option Code" mask="0x1F" size="1" showtemplate="FieldDec"/> 
 			</field>
 
 			<switch expr="buf2int(opttype)">
@@ -4672,13 +4672,13 @@ Please note: it was this before
 				</case>
 
 				<case value="5">	<!-- Router Alert -->
-					<field type="fixed" name="optlen" longname="Option Length" size="1" showtemplate="FieldDec"/>
-					<field type="fixed" name="value" size="2" longname="266 Option Value" showtemplate="ipv6.optroutalert"/>
+					<field type="fixed" name="optlen" longname="Option Length"  size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="value" size="2" longname="{2,10} 266 Option Value" showtemplate="ipv6.optroutalert"/>
 				</case>
 
 				<default>
 					<field type="fixed" name="optlen" longname="Option Length" size="1" showtemplate="FieldDec"/>
-					<field type="variable" name="optval" longname="266 Option Value" expr="buf2int(optlen)" showtemplate="Field4BytesHex"/>
+					<field type="variable" name="optval" longname="{2,10} 266 Option Value" expr="buf2int(optlen)" showtemplate="Field4BytesHex"/>
 				</default>
 			</switch>
 		</block>
@@ -4801,103 +4801,103 @@ Please note: it was this before
 		<fields>
 			<!-- The first three fields are common for every ICMPv6 message -->
 			<!-- 'Code' ad 'Checksum' are common among all the headers; however the meaning of the 'Code' is different -->
-			<field type="fixed" name="type" longname="258 Type" size="1" showtemplate="icmp6.type"/>
+			<field type="fixed" name="type" longname="{2,2} 258 Type" size="1" showtemplate="icmp6.type"/>
 
 			<switch expr="buf2int(type)">
 				<!-- Error messages -->
 				<case value="1">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="icmp6.code1"/>
+					<field type="fixed" name="code" longname="{2,3} 259 Code" size="1" showtemplate="icmp6.code1"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Error"/>
 				</case>
 				<case value="2">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Error"/>
 				</case>
 				<case value="3">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="icmp6.code3"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="icmp6.code3"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Error"/>
 				</case>
 				<case value="4">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="icmp6.code4"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="icmp6.code4"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Error"/>
 				</case>
 
 				<!-- Informational messages -->
 				<case value="128">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Echo"/>
 				</case>
 				<case value="129">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Echo"/>
 				</case>
 
 				<!-- Group Management messages -->
 				<case value="130">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Group"/>
 				</case>
 				<case value="131">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Group"/>
 				</case>
 				<case value="132">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Group"/>
 				</case>
 
 				<!-- Router / Neighbor Advertisement / Solicitation -->
 				<case value="133">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="RoutSol"/>
 				</case>
 				<case value="134">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="RoutAdv"/>
 				</case>
 				<case value="135">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="NeighSol"/>
 				</case>
 				<case value="136">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="NeighAdv"/>
 				</case>
 		
 				<!-- Other messages -->
 				<case value="137">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="Redir"/>
 				</case>
 		
 				<case value="138">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="icmp6.code138"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="icmp6.code138"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="RoutRen"/>
 				</case>
 		
 				<case value="141">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="INDS"/>
 				</case>
 		
 				<case value="142">
-					<field type="fixed" name="code" longname="259 Code" size="1" showtemplate="FieldDec"/>
+					<field type="fixed" name="code" longname="{2,3} Code" size="1" showtemplate="FieldDec"/>
 					<field type="fixed" name="checksum" longname="Checksum" size="2" showtemplate="FieldHex"/>
 					<includeblk name="INDA"/>
 				</case>
@@ -5747,8 +5747,8 @@ Please note: it was this before
 	</execute-code>
 	<format>
 		<fields>
-			<field type="fixed" name="sport" longname="006 Source port" size="2" showtemplate="FieldDec"/>
-			<field type="fixed" name="dport" longname="007 Destination port" size="2" showtemplate="FieldDec"/>
+			<field type="fixed" name="sport" longname="{0,6} " size="2" showtemplate="FieldDec"/>
+			<field type="fixed" name="dport" longname="{0,7} " size="2" showtemplate="FieldDec"/>
 			<field type="fixed" name="seq" longname="Sequence number" size="4" showtemplate="FieldDec"/>
 			<field type="fixed" name="ack" longname="Acknowledgement Number" size="4" showtemplate="FieldDec"/>
 			<field type="bit" name="hlen" longname="Header length" mask="0xF000" size="2" comment="This field is in multiple of 4 bytes" showtemplate="FieldMul4Dec"/>
@@ -6106,8 +6106,8 @@ Please note: it was this before
 
 	<format>
 		<fields>
-			<field type="fixed" name="sport" longname="006 Source port" size="2" showtemplate="FieldDec"/>
-			<field type="fixed" name="dport" longname="007 Destination port" size="2" showtemplate="FieldDec"/>
+			<field type="fixed" name="sport" longname="{0,6}" size="2" showtemplate="FieldDec"/>
+			<field type="fixed" name="dport" longname="{0,7}" size="2" showtemplate="FieldDec"/>
 			<field type="fixed" name="len" longname="Payload length" size="2" showtemplate="FieldDec"/>
 			<field type="fixed" name="crc" longname="Checksum" size="2" showtemplate="FieldHex"/>
 		</fields>
